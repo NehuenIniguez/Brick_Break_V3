@@ -10,7 +10,9 @@ export class Game extends Scene {
   constructor() {
     super("Game");
   }
-  
+  init(){
+    this.score=0;
+  };
 
   create() {
     // instanciar una nueva paleta.
@@ -35,7 +37,9 @@ export class Game extends Scene {
       this.wall,
       (ball, brick) => {
         brick.hit();
+        this.puntaje();
         if (brick.isBallCreator) {
+          
           const newBall = new Ball(this, ball.x, ball.y, 10, 0xffffff, 1);
           this.balls.add(newBall);
       } if(brick.isBallCreator){
@@ -44,30 +48,42 @@ export class Game extends Scene {
       }
         // Verificar si todos los bloques han sido destruidos
         if (this.wall.getChildren().every(brick => brick.destroyed)) {
-         
-          this.balls.increaseSpeed(1.1); // Incrementa la velocidad en un 10%
-          this.velocidadX = this.ball.newVelocityX;
-          this.velocidadY = this.ball.newVelocityY;
+          
+          ball.increaseSpeed(1.1); // Incrementa la velocidad en un 10%
+          this.velocidadX = ball.newVelocityX;
+          this.velocidadY = ball.newVelocityY;
           this.scene.restart({ newVelocityX: this.velocidadX, newVelocityY: this.velocidadY }); // Reinicia la escena
           console.log (this.balls.newVelocityX);
           console.log (this.balls.newVelocityY);
       }
+     
+      
     },
    // this.incremento(),
       null,
       this
     );
+    this.scoreTextgame = this.add.text(500, 600,`0`)
+    
 
     //colision de la pelota con el limite inferior
     this.physics.world.on("worldbounds", (body, up, down, left, right) => {
       console.log("worldbounds");
-      if (down) {
+      if (down ) {
+        this.balls.destroy();
         console.log("hit bottom");
         this.scene.start("GameOver");
       }
     });
-  }
- 
+    
+    
+    
+    
+  };
+ puntaje(){
+  this.score ++;
+  this.scoreTextgame.setText(`${this.score}`);
+ };
  // incremento(){
  //   console.log(this.ball.newVelocityX);
  //   console.log(this.ball.newVelocityY)
@@ -75,7 +91,7 @@ export class Game extends Scene {
 
 
   update() {
-  
+     
     this.paddle.update();
   }
 }

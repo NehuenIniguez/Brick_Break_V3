@@ -10,7 +10,7 @@ export class Brick extends Phaser.GameObjects.Rectangle {
 
       this.toches = 0;
       this.maxToches = Phaser.Math.Between(1, 4);
-      this.score=0;
+     
     }
   
     hit() {
@@ -27,13 +27,14 @@ export class Brick extends Phaser.GameObjects.Rectangle {
   
       if (this.toches === this.maxToches) {
         this.destroy();
-        this.score++;
-          // Crear nueva pelota si es un creador de pelotas
-          console.log('Intentando crear nueva pelota');
-      if (this.isBallCreator && this.toches === this.maxToches) {
-        this.scene.createNewBall(this.x, this.y);
-        console.log('Pelota creada con éxito');
-      }
+        
+        
+       // Crear nueva pelota si es un creador de pelotas
+        console.log('Intentando crear nueva pelota');
+        if (this.isBallCreator && this.toches === this.maxToches) {
+          this.scene.createNewBall(this.x, this.y);
+          console.log('Pelota creada con éxito');
+        }
       
       }
     }
