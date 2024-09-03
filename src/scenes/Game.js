@@ -38,14 +38,16 @@ export class Game extends Scene {
       (ball, brick) => {
         brick.hit();
         this.puntaje();
-        if (brick.isBallCreator) {
+        if (brick.isBallCreator && this.balls.getChildren().length<=4) {
           
           const newBall = new Ball(this, ball.x, ball.y, 10, 0xffffff, 1);
           this.balls.add(newBall);
-      } if(brick.isBallCreator){
-        const newBola = new Ball(this, ball.x, ball.y, 10, 0xffffff, 1);
-          this.balls.add(newBola);
-      }
+
+          brick.isBallCreator= false;
+        } //if(brick.isBallCreator){
+        //  const newBola = new Ball(this, ball.x, ball.y, 10, 0xffffff, 1);
+        //  this.balls.add(newBola);
+        //}
         // Verificar si todos los bloques han sido destruidos
         if (this.wall.getChildren().every(brick => brick.destroyed)) {
           
@@ -53,8 +55,8 @@ export class Game extends Scene {
           this.velocidadX = ball.newVelocityX;
           this.velocidadY = ball.newVelocityY;
           this.scene.restart({ newVelocityX: this.velocidadX, newVelocityY: this.velocidadY }); // Reinicia la escena
-          console.log (this.balls.newVelocityX);
-          console.log (this.balls.newVelocityY);
+          console.log (ball.newVelocityX);
+          console.log (ball.newVelocityY);
       }
      
       

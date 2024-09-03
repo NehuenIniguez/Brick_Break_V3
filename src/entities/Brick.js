@@ -1,5 +1,5 @@
 export class Brick extends Phaser.GameObjects.Rectangle {
-    constructor(scene, x, y, width, height, color, alpha,isBallCreator ) {
+    constructor(scene, x, y, width, height, color, alpha,isBallCreator  ) {
       super(scene, x, y, width, height, color, alpha);
   
       scene.add.existing(this);
@@ -31,10 +31,7 @@ export class Brick extends Phaser.GameObjects.Rectangle {
         
        // Crear nueva pelota si es un creador de pelotas
         console.log('Intentando crear nueva pelota');
-        if (this.isBallCreator && this.toches === this.maxToches) {
-          this.scene.createNewBall(this.x, this.y);
-          console.log('Pelota creada con éxito');
-        }
+       
       
       }
     }
