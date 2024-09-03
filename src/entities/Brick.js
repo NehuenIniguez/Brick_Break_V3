@@ -1,5 +1,5 @@
 export class Brick extends Phaser.GameObjects.Rectangle {
-    constructor(scene, x, y, width, height, color, alpha,isBallCreator  ) {
+    constructor(scene, x, y, width, height, color, alpha,isBallCreator, isBoomCreator  ) {
       super(scene, x, y, width, height, color, alpha);
   
       scene.add.existing(this);
@@ -7,6 +7,7 @@ export class Brick extends Phaser.GameObjects.Rectangle {
       this.body.immovable = true;
       this.body.setCollideWorldBounds(true);
       this.isBallCreator = isBallCreator;
+      this.isBoomCreator = isBoomCreator;
 
       this.toches = 0;
       this.maxToches = Phaser.Math.Between(1, 4);
